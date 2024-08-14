@@ -43,7 +43,7 @@ plt.legend(['Train', 'Validation'], loc='upper right')
 plt.show()
 
 
-#Some of the hyperparameters used for XGBoost regressor model are as follows:
+#Some of the hyperparameters used for XGBoost regression model are as follows:
 colsample_bylevel=0.4
 colsample_bytree=0.6
 learning_rate=0.15
@@ -52,3 +52,15 @@ min_child_weight=1
 n_estimators=100
 alpha=0.45
 subsample=0.27
+
+
+#DNN regression main code:
+scaler = StandardScaler()
+x= scaler.fit_transform(x)
+model = Sequential()
+model.add(Dense(10,  activation='tanh'))
+model.add(Dense(20, activation='relu'))
+#model.add(Dense(10, activation='softmax'))
+model.add(Dense(y.shape[1], activation='tanh')) 
+model.compile(optimizer=Adam(learning_rate=0.0015), loss='mean_squared_error')
+history = model.fit(x_train, y_train, epochs=100, batch_size=32, validation_split=0.15)
